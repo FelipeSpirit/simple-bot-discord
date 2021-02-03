@@ -16,7 +16,7 @@ import { Bot } from "./bot";
 
 export  class  CustomBot  extends  Bot{
     constructor(){
-        super("prefix","TOKEN");
+        super("prefix ","TOKEN");
     }
 
     protected  init() {
@@ -35,5 +35,20 @@ bot.start().then(res=>{
     console.log("Logged in!")
 }).catch(err=>{
     console.log("Oh no");
+})
+```
+
+or you can use the ``fastBot`` function | o puedes utilizar la función ``fastBot``:
+```
+import { Bot } from "./bot";
+
+Bot.fastBot(
+    "prefix ",
+    "TOKEN", 
+    [{names:['test'], listener:m=>m.reply("Test")}]
+).start().then(res=>{
+    console.log("Logged in")
+}).catch(err=>{
+    console.log("Error")
 })
 ```

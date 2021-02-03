@@ -1,5 +1,5 @@
 import { Client, Message } from "discord.js";
-import { EventEmitter, listenerCount } from 'events';
+import { EventEmitter } from 'events';
 import { Command } from "./command";
 
 /**
@@ -57,7 +57,7 @@ export abstract class Bot {
   /**
    * Initialize the commands and custom configs;
    */
-  protected abstract init();
+  protected abstract init():void;
 
   /**
    * Add n comands to the bot
@@ -67,5 +67,15 @@ export abstract class Bot {
     commands.forEach(c=>{
       this.setResponse(c.names,c.listener);
     })
+  }
+
+  static fastBot(prefix:string, token:string, commands:Command[]):Bot{
+    class CustomBot extends Bot{
+      protected init(): void {
+        this.addCommands(...commands);
+      }
+    }
+
+    return new CustomBot(prefix, token);
   }
 }
