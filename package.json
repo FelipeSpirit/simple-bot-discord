@@ -1,6 +1,6 @@
 {
   "name": "@felipespirit/simple-bot-discord",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Plantilla de bot de discord",
   "main": "dist/index.js",
   "scripts": {
@@ -23,5 +23,13 @@
     "reflect-metadata": "^0.1.13",
     "tsc-watch": "^4.2.9",
     "typescript": "^3.3.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FelipeSpirit/simple-bot-discord.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FelipeSpirit/simple-bot-discord/issues"
+  },
+  "homepage": "https://github.com/FelipeSpirit/simple-bot-discord#readme"
 }
