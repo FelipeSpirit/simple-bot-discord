@@ -1,6 +1,6 @@
 {
   "name": "@felipespirit/simple-bot-discord",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Plantilla de bot de discord",
   "main": "dist/index.js",
   "scripts": {
