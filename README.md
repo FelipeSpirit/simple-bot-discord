@@ -12,20 +12,28 @@ En la consola coloca | On the console type:
 ## Usage | Uso
 
 ```
-import { Bot, Command } from  "@felipespirit/simple-bot-discord";
+import { Bot } from "./bot";
 
-export  class  AcademicSetupBot  extends  Bot{
+export  class  CustomBot  extends  Bot{
     constructor(){
         super("prefix","TOKEN");
     }
 
-    protected  init(): Command[] {
-        return [
+    protected  init() {
+        this.addCommands(
             { 
-	            names:['test','t'], 
-	            listener:  message  => {message.channel.send("You request a test!")} 
+                names:['test', 't'],
+                listener: message=> message.channel.send("You request a Test!")
             }
-        ];
+        )
     }
 }
+
+var bot = new CustomBot();
+
+bot.start().then(res=>{
+    console.log("Logged in!")
+}).catch(err=>{
+    console.log("Oh no");
+})
 ```

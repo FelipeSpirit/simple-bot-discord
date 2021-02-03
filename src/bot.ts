@@ -1,5 +1,5 @@
 import { Client, Message } from "discord.js";
-import { EventEmitter } from 'events';
+import { EventEmitter, listenerCount } from 'events';
 import { Command } from "./command";
 
 /**
@@ -10,12 +10,19 @@ export abstract class Bot {
   private token:string;
   private client: Client;
   private emitter:EventEmitter;
+  private commands:Command[];
 
+  /**
+   * Build a bot
+   * @param prefix Bot's prefix
+   * @param token Discord token
+   */
   constructor(prefix:string, token: string) {
     this.prefix = prefix;
     this.token = token;
     this.client = new Client();
     this.emitter = new EventEmitter();
+    this.commands = [];
 
     this.client.on('message', (message: Message) => {
       if (!message.content.startsWith(this.prefix)) return;
@@ -23,9 +30,12 @@ export abstract class Bot {
       this.emitter.emit(this.getArguments(message.content)[0], message);
     });
 
-    this.init().forEach(oo=>this.setResponse(oo.names, oo.listener));
+    this.init();
   }
 
+  /**
+   * Connects the bot to Discord
+   */
   start(){
     return this.client.login(this.token);
   }
@@ -36,9 +46,26 @@ export abstract class Bot {
     })
   }
 
+  /**
+   * Get arguments of the command
+   * @param message content
+   */
   getArguments(message:string){
     return message.slice(this.prefix.length).trim().split(/ +/g);
   }
 
-  protected abstract init():Command[];
+  /**
+   * Initialize the commands and custom configs;
+   */
+  protected abstract init();
+
+  /**
+   * Add n comands to the bot
+   * @param commands The commands
+   */
+  addCommands(...commands:Command[]){
+    commands.forEach(c=>{
+      this.setResponse(c.names,c.listener);
+    })
+  }
 }
